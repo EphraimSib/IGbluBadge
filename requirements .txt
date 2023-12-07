@@ -1,0 +1,6 @@
+elenium==3.141.0
+BeautifulSoup4==4.9.3
+requests==2.25.1
+python3-xidel==0.9.0
+tor==0.4.5.8
+
