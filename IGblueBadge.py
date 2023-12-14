@@ -23,11 +23,12 @@ yellow='\e[1;33m'
 def run_server():
     print("\033[92m checking if your rooted.\033[0m")
 
+
 def check_root():
-    if os.geteuid() !== 0:
-        print("your rooted")
-    else: print ("your not rooted")
-        
+    if os.geteuid() == 0:
+        print("You are rooted")
+    else:
+        print("You are not rooted")
 
 if __name__ == "__main__":
     check_root()
