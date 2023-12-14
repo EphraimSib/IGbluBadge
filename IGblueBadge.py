@@ -57,8 +57,7 @@ if __name__ == "__main__":
     os.system("apt install python3-pip")
     os.system("apt-get install xidel")
     os.system("apt-get install python3-selenium")
-    os.system("npm install express")
-    os.system("npm install axios cors")
+    os.system("npm install -g npm")
     
 
     # Display info
