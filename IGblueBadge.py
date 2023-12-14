@@ -34,7 +34,7 @@ def main():
     while True:
         print("\rLoading" + loading_symbols[i % len(loading_symbols)], end="")
         i += 1
-        time.sleep(100)
+        time.sleep(10)
         if check_root():
             break
 
