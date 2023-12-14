@@ -21,14 +21,16 @@ yellow='\e[1;33m'
 
 
 def run_server():
-    print("\033[92m checking if your rooted.\033[0m")
+    print("\033[92m CHECKING IF YOUR ROOTED.\033[0m")
+    time.sleep(2)
+    clear
 
 
 def check_root():
     if os.geteuid() == 0:
-        print("You are rooted")
+        print("\033[92mYOU ARE ROOTED")
     else:
-        print("You are not rooted")
+        print("\033[92mYOU ARE NOT ROOTED")
 
 if __name__ == "__main__":
     check_root()
@@ -38,7 +40,6 @@ if __name__ == "__main__":
 
     print("\033[92mRUN TOR FOR ANONYMOUS\033[0m")
     time.sleep(2)
-    then 
     clear 
 
     # Update packages and install dependencies
@@ -55,8 +56,7 @@ if __name__ == "__main__":
     os.system("apt-get install python3-selenium")
 
     print("\033[92mTERINSTALL\033[0m")
-    time.sleep(1)
-    then 
+    time.sleep(2) 
     clear 
 
     # Display info
