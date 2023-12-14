@@ -48,9 +48,7 @@ if __name__ == "__main__":
 
 
 
- print("\033[92mRUN TOR FOR ANONYMOUS..")
- time.sleep(5)
- os.system('clear')
+
 
 
     # Display info
