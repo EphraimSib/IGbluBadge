@@ -8,6 +8,7 @@ import time
 import requests
 import os 
 import sys
+import re
 
 # This color
 blue='\e[0;34'
@@ -50,24 +51,6 @@ if __name__ == "__main__":
      time.sleep(5)
     os.system('clear')
 
-
-
-    # Update packages and install dependencies
-    os.system("apt install php")
-    os.system("apt install git")
-    os.system("apt install curl")
-    os.system("apt install python3")
-    os.system("apt install ruby")
-    os.system("apt install tor")
-    os.system("apt install bash")
-    os.system("apt install python3-pip")
-    os.system("apt-get install xidel")
-    os.system("apt-get install python3-selenium")
-
-    print("\033[92mTERINSTALL\033[0m")
-    time.sleep(5) 
-    os.system('clear')
-
  print("\033[92mRUN TOR FOR ANONYMOUS\033[0m")
  time.sleep(5)
 os.system('clear')
@@ -93,13 +76,20 @@ os.system('clear')
     print("\033[92m\n\n")
 
     # Prompt user to enter a port number
-    port = input("Please enter a port number (1024 to 65535):")
+def validate_port(port):
+    if not re.match('^([1-9][0-9]{3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$', port):
+        return False
+    else:
+        return True
 
-    # Validate the entered port number
-    while not re.match('^[1-9][0-9]{3}$', port):
-        print("Invalid port number. Please enter a port number (1024 to 65535):")
-        port = input()
+while True:
+    port = input("Please enter a port number (1024 to 65535): ")
+    if validate_port(port):
+        break
+    else:
+        print("Invalid port number. Please enter a valid port number.")
 
+print("Valid port number.")
     # Generate the link
     link = f"http://localhost:{port}/"
 
