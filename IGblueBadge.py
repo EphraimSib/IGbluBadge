@@ -46,9 +46,7 @@ def main():
 if __name__ == "__main__":
     main()
 
-    # Continue with your script here
-     time.sleep(5)
-    os.system('clear')
+
 
  print("\033[92mRUN TOR FOR ANONYMOUS\033[0m")
  time.sleep(5)
