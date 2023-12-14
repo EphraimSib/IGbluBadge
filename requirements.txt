@@ -21,7 +21,6 @@ async-timeout==4.0.2
 attrs==23.1.0
 autocommand==2.2.2
 Babel==2.10.3
-beautifulsoup4==4.12.2
 beniget==0.4.1
 billiard==4.1.0
 binwalk==2.3.3
