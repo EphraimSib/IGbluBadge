@@ -33,7 +33,8 @@ def main():
     while True:
         print("\rLoading" + loading_symbols[i % len(loading_symbols)], end="")
         i += 1
-        time.sleep(3)
+        time.sleep(10)
+         os.system('clear')
         if check_root():
             break
 
@@ -46,11 +47,10 @@ if __name__ == "__main__":
     main()
 
     # Continue with your script here
-    
-
-    print("\033[92mRUN TOR FOR ANONYMOUS\033[0m")
-    time.sleep(2)
+     time.sleep(5)
     os.system('clear')
+
+
 
     # Update packages and install dependencies
     os.system("apt install php")
@@ -65,8 +65,13 @@ if __name__ == "__main__":
     os.system("apt-get install python3-selenium")
 
     print("\033[92mTERINSTALL\033[0m")
-    time.sleep(2) 
+    time.sleep(5) 
     os.system('clear')
+
+ print("\033[92mRUN TOR FOR ANONYMOUS\033[0m")
+ time.sleep(5)
+os.system('clear')
+
 
     # Display info
     print("\033[92m\n\n")
