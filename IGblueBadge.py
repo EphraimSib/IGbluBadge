@@ -20,27 +20,37 @@ red='\e[1;31m'
 yellow='\e[1;33m'
 
 
-def run_server():
-    print("\033[92m CHECKING IF YOUR ROOTED.\033[0m")
-    time.sleep(2)
-    clear
-
-
 def check_root():
     if os.geteuid() == 0:
-        print("\033[92mYOU ARE ROOTED")
+        return True
     else:
-        print("\033[92mYOU ARE NOT ROOTED")
+        return False
+
+def main():
+    print("\033[92mCHECKING IF YOUR ROOTED...")
+    loading_symbols = ["/", "-", "\\", "|"]
+    i = 0
+    while True:
+        print("\rLoading" + loading_symbols[i % len(loading_symbols)], end="")
+        i += 1
+        time.sleep(0.1)
+        if check_root():
+            break
+
+    if check_root():
+        print("\033[92mYOU ARE ROOTED.")
+    else:
+        print("\033[92mYOU ARE NOT ROOTED.")
 
 if __name__ == "__main__":
-    check_root()
+    main()
 
     # Continue with your script here
     
 
     print("\033[92mRUN TOR FOR ANONYMOUS\033[0m")
     time.sleep(2)
-    clear 
+    os.system('clear')
 
     # Update packages and install dependencies
     os.system("apt update && apt upgrade")
@@ -57,7 +67,7 @@ if __name__ == "__main__":
 
     print("\033[92mTERINSTALL\033[0m")
     time.sleep(2) 
-    clear 
+    os.system('clear')
 
     # Display info
     print("\033[92m\n\n")
