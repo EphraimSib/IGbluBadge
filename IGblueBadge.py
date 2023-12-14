@@ -33,7 +33,7 @@ def main():
     while True:
         print("\rLoading" + loading_symbols[i % len(loading_symbols)], end="")
         i += 1
-        time.sleep(0.1)
+        time.sleep(3)
         if check_root():
             break
 
@@ -53,7 +53,6 @@ if __name__ == "__main__":
     os.system('clear')
 
     # Update packages and install dependencies
-    os.system("apt update && apt upgrade")
     os.system("apt install php")
     os.system("apt install git")
     os.system("apt install curl")
