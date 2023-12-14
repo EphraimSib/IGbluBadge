@@ -35,7 +35,6 @@ celery==5.3.1
 certifi==2022.9.24
 cffi==1.15.1
 cfscrape==1.9.5
-chardet==5.1.0
 charset-normalizer==2.1.1
 cheroot==10.0.0+ds1
 CherryPy==18.8.0
@@ -49,6 +48,7 @@ colorama==0.4.6
 contextlib2==0.6.0.post1
 contourpy==1.0.7
 coreapi==2.3.3
+chardet==3.0.2
 coreschema==0.0.4
 cpe==1.2.1
 cryptography==38.0.4
