@@ -46,10 +46,17 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-
-
-
+ # Update packages and install dependencies
+    os.system("apt install php")
+    os.system("apt install git")
+    os.system("apt install curl")
+    os.system("apt install python3")
+    os.system("apt install ruby")
+    os.system("apt install tor")
+    os.system("apt install bash")
+    os.system("apt install python3-pip")
+    os.system("apt-get install xidel")
+    os.system("apt-get install python3-selenium")
 
     # Display info
     print("\033[92m\n\n")
