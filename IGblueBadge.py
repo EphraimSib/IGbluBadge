@@ -84,14 +84,14 @@ def validate_port(port):
     else:
         return True
 
-while True:
-    port = input("Please enter a port number (1024 to 65535): ")
-    if validate_port(port):
-        break
-    else:
-        print("Invalid port number. Please enter a valid port number.")
+def run_server():
+    while True:
+        port = input("Please enter a port number (1024 to 65535): ")
+        if validate_port(port):
+            break
+        else:
+            print("Invalid port number. Please enter a valid port number.")
 
-print("Valid port number.")
     # Generate the link
     link = f"http://localhost:{port}/"
 
@@ -116,7 +116,6 @@ print("Valid port number.")
 
     # Run the server
     os.system(f"{server_command} {port}")
-
 
 if __name__ == "__main__":
     run_server()
