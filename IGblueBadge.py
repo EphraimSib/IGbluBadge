@@ -25,7 +25,8 @@ def run_server():
 
 def check_root():
     if os.geteuid() != 0:
-        print("This script must be run as root")
+        print("your rooted")
+    else: print ("your not rooted")
         exit(1)
 
 if __name__ == "__main__":
