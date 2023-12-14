@@ -2,9 +2,6 @@ selenium==3.141.0
 BeautifulSoup4==4.9.3
 requests==2.5.1
 tor==1.0.0.0
-express==1.0.0.0
-axios==1.0.0.0
-cors==1.0.0.0
 adblockparser==0.7
 aiodns==3.0.0
 aiofiles==23.1.0
