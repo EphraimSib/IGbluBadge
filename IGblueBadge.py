@@ -20,9 +20,6 @@ white='\e[1;37m'
 red='\e[1;31m'
 yellow='\e[1;33m'
 
-import os
-import time
-
 def check_root():
     return os.geteuid() == 0
 
@@ -79,12 +76,6 @@ if __name__ == "__main__":
     print("\033[92m\n\n")
 
     # Prompt user to enter a port number
-#!/usr/bin/env python3
-
-import os
-import sys
-import re
-import time
 
 def validate_port(port):
     if not re.match('^([1-9][0-9]{3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$', port):
