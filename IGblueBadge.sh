@@ -27,17 +27,11 @@ main() {
 main
 
 # Update packages and install dependencies
-apt install php
-apt install git
-apt install curl
-apt install python3
-apt install ruby
-apt install tor
-apt install bash
-apt install python3-pip
-apt-get install xidel
-apt-get install python3-selenium
-npm install -g npm
+sudo apt-get update
+sudo apt-get install -y php git curl python3 ruby tor bash python3-pip xidel python3-selenium
+
+# Install npm
+sudo apt-get install -y npm
 
 # Display info
 echo -e "\033[92m\n\n"
@@ -87,20 +81,5 @@ run_server() {
     logfile="server.log"
 
     # Set the file to run the server
-    server_file="server.js"
-
-    # Set the command to run the server
-    server_command="node $server_file"
-
-    # Print start message
-    echo "Starting server on port $port"
-
-    # Redirect stdout and stderr to log file
-    exec &>> "$logfile"
-
-    # Run the server
-    $server_command "$port"
-}
-
-run_server
+    server_file="server.js
 
