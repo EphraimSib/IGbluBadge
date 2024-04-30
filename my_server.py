@@ -3,7 +3,6 @@
 import http.server
 import socketserver
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,15 +11,18 @@ import getpass
 # Initialize the Chrome WebDriver
 driver = webdriver.Chrome()
 
-try:
-    # Open Instagram login page
-    driver.get('https://www.instagram.com/accounts/login/')
-
 def get_credentials():
     username = input("Enter your username: ")
     password = getpass.getpass("Enter your password: ")  # Securely input the password
     return username, password
-    
+
+try:
+    # Open Instagram login page
+    driver.get('https://www.instagram.com/accounts/login/')
+
+    # Get user credentials
+    username, password = get_credentials()
+
     # Log in
     username_input = driver.find_element(By.NAME, 'username')
     password_input = driver.find_element(By.NAME, 'password')
@@ -32,16 +34,6 @@ def get_credentials():
 
     # Wait for the login to complete
     WebDriverWait(driver, 10).until(EC.url_to_be('https://www.instagram.com/'))
-
-def main():
-    # Get user credentials
-    username, password = get_credentials()
-
-    # You can save the credentials to a file or use them as needed
-    # For security reasons, avoid storing passwords in plain text files
-
-    print(f"Credentials saved for user: {username}")
-
 
     # Check if the user has a blue badge (verified account)
     blue_badge_element = driver.find_element(By.CSS_SELECTOR, 'svg[aria-label="Verified"]')
@@ -75,8 +67,3 @@ class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
 with socketserver.TCPServer(("", PORT), MyRequestHandler) as httpd:
     print(f"Server is running on port {PORT}")
     httpd.serve_forever()
-
-
-
-
-
