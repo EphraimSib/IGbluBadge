@@ -65,7 +65,8 @@ def run_server():
             break
         else:
             print("Invalid port number. Please enter a valid port number.")
-
+            
+         #To run the server 
        subprocess.run(["python3 my_server.py"])
     
     # Generate the link
