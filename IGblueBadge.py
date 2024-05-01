@@ -54,6 +54,9 @@ print("\033[92m         #                                             #")
 print("\033[92m         ***********************************************")
 print("\033[92m\n\n")
 
+# Prompt user to enter a port number
+def validate_port(port):
+    return re.match(r'^([1-9][0-9]{3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$', port)
 
 def run_server():
     while True:
@@ -62,7 +65,7 @@ def run_server():
             break
         else:
             print("Invalid port number. Please enter a valid port number.")
-
+    
     # Generate the link
     link = f"http://localhost:{port}/"
 
@@ -72,16 +75,10 @@ def run_server():
     # Set the file to write log messages to
     logfile = "server.log"
 
-    # Start the server (you need to define 'app' somewhere in your code)
-    # app.run(port=port, logfile=logfile)
+    # Set the file to run the server (not applicable in Python)
 
-    # Save the user's credentials (you need to implement 'encrypt' function)
-    username = input("Please enter your Instagram username: ")
-    password = input("Please enter your Instagram password: ")
-    with open("credentials.txt", "w") as f:
-        f.write(f"{username}\n{password}")
-    # Encrypt and save the credentials (you need to implement 'encrypt' function)
-    # ...
+    # Print start message
+    print(f"Starting server on port {port}")
 
-    # Remove the plaintext credentials file
-    os.remove("credentials.txt")
+if __name__ == "__main__":
+    run_server()
