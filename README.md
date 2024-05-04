@@ -15,7 +15,7 @@ pip3 install the requirements
 
 #After checking if you are root, the script will prompt you to enter a port number (between 1024 and 65535) to run the local web server. It will then create a custom request handler to respond with a simple message.
 
-#The script will then initialize the Firefox WebDriver, open the Instagram login page, and enter your username and password. It will wait for the login process to complete, and then check if the user has a blue badge (verified account) on Instagram.
+#The script will then initialize the Chrome, open the Instagram login page, and enter your username and password. It will wait for the login process to complete, and then check if the user has a blue badge (verified account) on Instagram.
 
 #If the user has a blue badge, it will print a success message and log the event. If not, it will print an error message and log the error.
 
