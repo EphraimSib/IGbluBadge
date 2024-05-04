@@ -22,7 +22,7 @@ pip3 install the requirements
 #Finally, the script will close the browser, generate a link to the local web server, and serve the server forever.
 
 #Usage:
-# use this script, simply run it in your terminal or command prompt. The script will prompt you for your Instagram credentials and the port number for the local web server.
+ use this script, simply run it in your terminal or command prompt. The script will prompt you for your Instagram credentials and the port number for the local web server.
 
 #Make sure to have the following packages installed:
 - php
