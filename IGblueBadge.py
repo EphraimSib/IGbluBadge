@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
 
+import logging
 import os
 import sys
 import time
 import re
 import subprocess
+import http.server
+import socketserver
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import getpass
+
+
 
 def check_root():
     return os.geteuid() == 0
@@ -65,20 +75,76 @@ def run_server():
             break
         else:
             print("Invalid port number. Please enter a valid port number.")
-    
-    # Generate the link
-    link = f"http://localhost:{port}/"
 
-    # Print the link
-    print(f"Generated link: {link}")
-
-    # Set the file to write log messages to
-    logfile = "server.log"
-
-    # Set the file to run the server (not applicable in Python)
+    # Configure logging to write to a file
+    logging.basicConfig(filename='instagram_login.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
 
     # Print start message
     print(f"Starting server on port {port}")
 
+    # Create the custom request handler
+    class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
+        def do_GET(self):
+            # Customize the response (optional)
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+            self.wfile.write(b"Hello, this is your custom server!")
+
+    # Create the server
+    with socketserver.TCPServer(("", int(port)), MyRequestHandler) as httpd:
+        print(f"Server is running on port {port}")
+
+        
+# Initialize the chrome WebDriver
+    driver = webdriver.chrome()
+
+try:
+            # Open Instagram login page
+            driver.get('https://www.instagram.com/accounts/login/')
+
+            # Get user credentials (replace with actual credentials)
+            username = "your_username"
+            password = "your_password"
+
+            # Log in
+            username_input = driver.find_element(By.NAME, 'username')
+            password_input = driver.find_element(By.NAME, 'password')
+            login_button = driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
+
+            username_input.send_keys(username)
+            password_input.send_keys(password)
+            login_button.click()
+
+            # Wait for the login to complete
+            WebDriverWait(driver, 10).until(EC.url_to_be('https://www.instagram.com/'))
+
+            # Check if the user has a blue badge (verified account)
+            blue_badge_element = driver.find_element(By.CSS_SELECTOR, 'svg[aria-label="Verified"]')
+            blue_badge_status = blue_badge_element.is_displayed()
+
+            if blue_badge_status:
+                print("Congratulations! You have a blue badge (verified account) on Instagram.")
+                logging.info("User has a blue badge (verified account) on Instagram.")
+            else:
+                print("You do not have a blue badge on Instagram.")
+                logging.info("User does not have a blue badge on Instagram.")
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            logging.error(f"Error during login: {e}")
+
+        finally:
+            # Close the browser
+            driver.quit()
+
+            # Generate the link
+            link = f"http://localhost:{port}/"
+            print(f"Generated link: {link}")
+
+            # Serve forever
+            httpd.serve_forever()
+
 if __name__ == "__main__":
     run_server()
+ 
