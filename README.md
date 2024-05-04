@@ -11,7 +11,8 @@ pip3 install the requirements
 #This script is a tool for checking if you are root and then running a local web server to catch Instagram credentials.
 
 #Principle:
-#The script first checks if you are root by looking for the `/root` directory in the `os.geteuid()` function. If you are root, it will display a green message. If not, it will display a red message.
+
+The script first checks if you are root by looking for the `/root` directory in the `os.geteuid()` function. If you are root, it will display a green message. If not, it will display a red message.
 
 #After checking if you are root, the script will prompt you to enter a port number (between 1024 and 65535) to run the local web server. It will then create a custom request handler to respond with a simple message.
 
