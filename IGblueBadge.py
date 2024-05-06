@@ -97,7 +97,8 @@ def run_server():
             self.wfile.write(b"Hello, this is your custom server!")
 
     # Initialize Chrome WebDriver
-    chrome_options = Options()
+
+    chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--headless')  # Optional: Run Chrome in headless mode
     driver = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=chrome_options)
