@@ -5,6 +5,7 @@ import os
 from ssl import Options
 import sys
 import time
+import threading 
 import re
 import subprocess
 import http.server
@@ -82,7 +83,7 @@ def run_server():
             print("Invalid port number. Please enter a valid port number.")
 
     # Configure logging to write to a file
-    logging.basicConfig(filename='instagram_login.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
+    logging.basicConfig(filename='server.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
 
     # Print start message
     print(f"Starting server on port {port}")
@@ -135,9 +136,8 @@ def run_server():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-    finally:
-        # Close the browser
-        driver.quit()
+     # Run the Node.js server in a separate thread
+    threading.Thread(target=lambda: subprocess.run(["node", "server.js", str(port)])).start()
 
     # Create the server
     with socketserver.TCPServer(("", int(port)), MyRequestHandler) as httpd:
@@ -151,4 +151,5 @@ def run_server():
         httpd.serve_forever()
 
 if __name__ == "__main__":
+       main()
        run_server()
